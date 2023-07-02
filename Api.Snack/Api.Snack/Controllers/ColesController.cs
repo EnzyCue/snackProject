@@ -30,7 +30,7 @@ namespace Api.Snack.Controllers
             //Scrape price
             var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']").InnerHtml;
 
-            return new OkObjectResult(node);
+            return new OkObjectResult(price);
         }
 
         // encode the information into an object
