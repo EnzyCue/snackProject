@@ -1,3 +1,4 @@
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
@@ -8,7 +9,6 @@ namespace Api.Snack.Controllers
     public class ColesController : ControllerBase
     {
         private readonly ILogger<ColesController> _logger;
-
         private readonly string _colesProductEndpoint = "https://www.coles.com.au/product/";
 
         public ColesController(ILogger<ColesController> logger)
@@ -19,14 +19,19 @@ namespace Api.Snack.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(string id)
         {
+            // go from id -> html url
             string url = $"{_colesProductEndpoint}{id}";
-            return new OkObjectResult(id);
+
+            // use html agility pack to extract the information about the product
+            HtmlWeb web = new HtmlWeb();
+
+            var htmlDoc = web.Load(url);
+
+            var node = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']");
+
+            return new OkObjectResult(node.InnerHtml);
         }
 
-        // go from id -> html url
-
-
-        // use html agility pack to extract the information about the product
         // encode the information into an object
         // send the object back to the user through api
     }
