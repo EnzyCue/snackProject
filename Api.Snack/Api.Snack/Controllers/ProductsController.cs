@@ -1,3 +1,4 @@
+using Api.Snack.Models;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -23,6 +24,8 @@ namespace Api.Snack.Controllers
 
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); 
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
+
+            var products = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts);
 
             // go from id -> html url
             string url = $"{_colesProductEndpoint}{_colesProductEndpoint}";

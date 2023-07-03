@@ -2,16 +2,16 @@
 {
     public class Product
     {
-        public string Id { get; init; }
+        public string Id { get; set; }
 
-        public decimal Price { get; init; }
+        public decimal Price { get; set; }
 
-        public string Name { get; init; }
+        public string Name { get; set; }
         
-        public string Image { get; init; }
+        public string Image { get; set; }
 
-        public decimal SaveAmount { get; init; }
+        public decimal SaveAmount { get; set; }
 
-        public decimal PricePerHundredGrams { get; init; }
+        public decimal PricePerHundredGrams { get; set; }
     }
 }
