@@ -21,13 +21,12 @@ namespace Api.Snack.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-
-            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location); 
+            //Get list of products
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
+            var products = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            var products = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts);
-
-            // go from id -> html url
+/*            // go from id -> html url
             string url = $"{_colesProductEndpoint}{_colesProductEndpoint}";
 
             // use html agility pack to extract the information about the product
@@ -36,9 +35,9 @@ namespace Api.Snack.Controllers
             var htmlDoc = web.Load(url);
 
             //Scrape price
-            var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']").InnerHtml;
+            var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']").InnerHtml;*/
 
-            return new OkObjectResult(price);
+            return new OkObjectResult(products);
         }
 
         // encode the information into an object
