@@ -1,4 +1,5 @@
 using Api.Snack.Models;
+using Api.Snack.Services;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -11,11 +12,13 @@ namespace Api.Snack.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ILogger<ProductsController> _logger;
-        private readonly string _colesProductEndpoint = "https://www.coles.com.au/product/";
+        private readonly ColesService _colesService;
 
-        public ProductsController(ILogger<ProductsController> logger)
+        public ProductsController(ILogger<ProductsController> logger, ColesService colesService)
         {
             _logger = logger;
+            _colesService = colesService;
+
         }
 
         [HttpGet]
@@ -24,20 +27,16 @@ namespace Api.Snack.Controllers
             //Get list of products
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
-            var products = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var productComparisons = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-/*            // go from id -> html url
-            string url = $"{_colesProductEndpoint}{_colesProductEndpoint}";
+            foreach (var productComparison in productComparisons)
+            {
+                await _colesService.GetColesProduct(productComparison.Coles);
+            }
 
-            // use html agility pack to extract the information about the product
-            HtmlWeb web = new HtmlWeb();
 
-            var htmlDoc = web.Load(url);
 
-            //Scrape price
-            var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']").InnerHtml;*/
-
-            return new OkObjectResult(products);
+            return new OkObjectResult(productComparisons);
         }
 
         // encode the information into an object
