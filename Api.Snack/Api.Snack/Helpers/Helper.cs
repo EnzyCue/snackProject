@@ -6,7 +6,7 @@
         {
             
             return new String(input
-                .Where(x => char.IsDigit(x))
+                .Where(x => char.IsDigit(x) || x == '.')
                 .ToArray());
         }
     }
