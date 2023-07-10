@@ -1,6 +1,7 @@
 ﻿using Api.Snack.Helpers;
 using Api.Snack.Models;
 using HtmlAgilityPack;
+using System.Text;
 
 namespace Api.Snack.Services
 {
@@ -14,26 +15,24 @@ namespace Api.Snack.Services
             string url = $"{_colesProductEndpoint}{product.Id}";
 
             // use html agility pack to extract the information about the product
-            HtmlWeb web = new HtmlWeb();
-
+            var web = new HtmlWeb();
             var htmlDoc = web.Load(url);
 
             //Scrape data
+            var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
+            var startIndex = image.IndexOf("https://productimages.coles.com.au");
+            var endIndex = image.IndexOf(" ", startIndex);
+            image = image.Substring(startIndex, endIndex - startIndex);
+
             var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']")?.InnerHtml;
             var name = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='LinesEllipsis  product__title']")?.InnerHtml;
-            var image = htmlDoc.DocumentNode
-                .SelectSingleNode("//div[@class='coles-targeting-ProductImagesWrapper']")?
-                .FirstChild?
-                .ChildNodes?
-                .FirstOrDefault(x => x.Name == "img")?
-                .Attributes?
-                .FirstOrDefault(x => x.Name == "src");
-
+            
             var saveAmount = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='badge-label']")?.InnerHtml;
             var pricePerHundredGrams = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__calculation_method']")?.InnerHtml;
 
             //Map data
             product.Price = price == null ? 0 : Convert.ToDecimal(Helper.TakeDigits(price));
+            product.Image = image;
         }
     }
 }

@@ -34,8 +34,6 @@ namespace Api.Snack.Controllers
                 await _colesService.GetColesProduct(productComparison.Coles);
             }
 
-
-
             return new OkObjectResult(productComparisons);
         }
 
