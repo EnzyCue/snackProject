@@ -2,6 +2,7 @@
 using Api.Snack.Models;
 using HtmlAgilityPack;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Api.Snack.Services
 {
@@ -31,6 +32,7 @@ namespace Api.Snack.Services
 
             //Scrape Name
             var name = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='LinesEllipsis  product__title']")?.InnerHtml;
+            name  = Regex.Replace(name ?? string.Empty, "<.*?>|&.*?;", string.Empty);
 
             //Scrape Save Amount
             var saveAmount = htmlDoc.DocumentNode.SelectSingleNode("//section[@class='badge-label']")?.InnerHtml;
