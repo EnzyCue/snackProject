@@ -13,11 +13,13 @@ namespace Api.Snack.Controllers
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly ColesService _colesService;
+        private readonly WoolworthsService _woolworthsService;
 
-        public ProductsController(ILogger<ProductsController> logger, ColesService colesService)
+        public ProductsController(ILogger<ProductsController> logger, ColesService colesService, WoolworthsService woolworthsService)
         {
             _logger = logger;
             _colesService = colesService;
+            _woolworthsService = woolworthsService;
 
         }
 
@@ -32,6 +34,9 @@ namespace Api.Snack.Controllers
             foreach (var productComparison in productComparisons)
             {
                 await _colesService.GetColesProduct(productComparison.Coles);
+
+                await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths);
+
             }
 
             return new OkObjectResult(productComparisons);
