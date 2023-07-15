@@ -10,7 +10,9 @@
 
         public CacheObject(object obj)
         {
-            ExpiryTime = DateTime.UtcNow.AddDays(1);
+            var currentDateTime = DateTime.Now.AddHours(2);
+            var currentUtc = DateTime.UtcNow;
+            ExpiryTime = new DateTime(currentDateTime.Year, currentDateTime.Month, currentUtc.Day, 6, 0, 0).ToUniversalTime().AddDays(1);
             Object = obj;
         }
 
@@ -69,6 +71,5 @@
             cache = (T)value.Object;
             return true;
         }
-
     }
 }
