@@ -33,7 +33,7 @@ namespace Api.Snack.Helpers
             return price;
         }
 
-        public static (string, string) GetCookies()
+        public static string GetCookies()
         {
             string url = "https://www.woolworths.com.au/shop/productdetails/479502";
             string _cookie1 = "_abck";
@@ -50,7 +50,7 @@ namespace Api.Snack.Helpers
                 var cookie1 = driver.Manage().Cookies.GetCookieNamed(_cookie1);
                 var cookie2 = driver.Manage().Cookies.GetCookieNamed(_cookie2);
 
-                return (cookie1.Value, cookie2.Value);
+                return $"{_cookie1}={cookie1.Value}; {_cookie2}={cookie2.Value}";
             }
             finally
             {

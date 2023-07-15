@@ -14,7 +14,7 @@ namespace Api.Snack.Services
         {
             // go from id -> html url
             string url = $"{_colesProductEndpoint}{product.Id}";
-
+            
             // use html agility pack to extract the information about the product
             var web = new HtmlWeb();
             var htmlDoc = web.Load(url);
