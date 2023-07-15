@@ -20,7 +20,6 @@ namespace Api.Snack.Controllers
             _logger = logger;
             _colesService = colesService;
             _woolworthsService = woolworthsService;
-
         }
 
         [HttpGet]
@@ -31,19 +30,12 @@ namespace Api.Snack.Controllers
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
             var productComparisons = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
-            var tasks = new List<Task>();
-
             foreach (var productComparison in productComparisons)
             {
-                /*await _colesService.GetColesProduct(productComparison.Coles);*/
+                await _colesService.GetColesProduct(productComparison.Coles);
 
-
-                tasks.Add(_woolworthsService.GetWoolworthsProduct(productComparison.Woolworths));  
-           
-
+                await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths);
             }
-
-            await Task.WhenAll(tasks);
 
             return new OkObjectResult(productComparisons);
         }
