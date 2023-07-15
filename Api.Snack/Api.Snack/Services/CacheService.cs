@@ -1,15 +1,39 @@
 ﻿namespace Api.Snack.Services
 {
-    public class CacheService
+    public class CacheObject
     {
-        private Dictionary<string, object> Cache { get; set; }
-        public CacheService()
+        public CacheObject(object obj, DateTime expiryTime)
         {
-            Cache = new Dictionary<string, object>();
+            ExpiryTime = expiryTime.ToUniversalTime();
+            Object = obj;
         }
 
-        public void SetCacheKey(string key, object value)
+        public CacheObject(object obj)
         {
+            ExpiryTime = DateTime.UtcNow.AddDays(1);
+            Object = obj;
+        }
+
+        public DateTime ExpiryTime { get; set; }
+        public object Object { get; set; }
+    }
+
+    public class CacheService
+    {
+        private Dictionary<string, CacheObject> Cache { get; set; }
+        public CacheService()
+        {
+            Cache = new Dictionary<string, CacheObject>();
+        }
+
+        public void SetCacheKey(string key, object cacheValue)
+        {
+            // add with date time
+
+            var value = new CacheObject(cacheValue);
+
+            value.Object = cacheValue;
+
             Cache[key] = value;
         }
 
@@ -23,19 +47,19 @@
 
         public bool TryGetCache<T>(string key, out T? cache)
         {
-            if (!Cache.TryGetValue(key, out object? value))
+            if (!Cache.TryGetValue(key, out CacheObject? value))
             {
                 cache = default;
                 return false;
             }
 
-            if (value is not T)
+            if (value.Object is not T)
             {
                 cache = default;
                 return false;
             }
 
-            cache = (T)value;
+            cache = (T)value.Object;
             return true;
         }
     }
