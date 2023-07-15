@@ -53,6 +53,13 @@
                 return false;
             }
 
+            if (DateTime.UtcNow > value.ExpiryTime)
+            {
+                RemoveCacheKey(key);
+                cache = default;
+                return false;
+            }
+
             if (value.Object is not T)
             {
                 cache = default;
@@ -62,5 +69,6 @@
             cache = (T)value.Object;
             return true;
         }
+
     }
 }
