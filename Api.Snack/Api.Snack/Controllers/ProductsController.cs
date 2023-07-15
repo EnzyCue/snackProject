@@ -1,3 +1,4 @@
+using Api.Snack.Helpers;
 using Api.Snack.Models;
 using Api.Snack.Services;
 using HtmlAgilityPack;
@@ -29,12 +30,13 @@ namespace Api.Snack.Controllers
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
             var productComparisons = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var cookies = Helper.GetCookies();
 
             foreach (var productComparison in productComparisons)
             {
                 await _colesService.GetColesProduct(productComparison.Coles);
 
-                await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths);
+                await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths, cookies);
             }
 
             return new OkObjectResult(productComparisons);
