@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ColesService>();
 builder.Services.AddSingleton<WoolworthsService>();
+builder.Services.AddSingleton<CacheService>();
 
 var app = builder.Build();
 
