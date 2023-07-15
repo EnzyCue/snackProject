@@ -15,17 +15,25 @@ namespace Api.Snack.Controllers
         private readonly ILogger<ProductsController> _logger;
         private readonly ColesService _colesService;
         private readonly WoolworthsService _woolworthsService;
+        private readonly CacheService _cacheService;
 
-        public ProductsController(ILogger<ProductsController> logger, ColesService colesService, WoolworthsService woolworthsService)
+        public ProductsController(ILogger<ProductsController> logger, ColesService colesService, WoolworthsService woolworthsService, CacheService cacheService)
         {
             _logger = logger;
             _colesService = colesService;
             _woolworthsService = woolworthsService;
+            _cacheService = cacheService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
+            // check if its cached
+            if (_cacheService.TryGetCache<List<ProductComparison>>("Products", out var cache))
+            {
+                return new OkObjectResult(cache);
+            }
+
             //Get list of products
             string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
@@ -38,6 +46,8 @@ namespace Api.Snack.Controllers
 
                 await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths, cookies);
             }
+
+            _cacheService.SetCacheKey("Products", productComparisons);
 
             return new OkObjectResult(productComparisons);
         }

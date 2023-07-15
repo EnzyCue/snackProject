@@ -2,7 +2,7 @@
 {
     public class CacheService
     {
-        public Dictionary<string, object> Cache { get; set; }
+        private Dictionary<string, object> Cache { get; set; }
         public CacheService()
         {
             Cache = new Dictionary<string, object>();
@@ -21,14 +21,22 @@
             }
         }
 
-        public T? GetCache<T>(string key)
+        public bool TryGetCache<T>(string key, out T? cache)
         {
             if (!Cache.TryGetValue(key, out object? value))
-                return default;
+            {
+                cache = default;
+                return false;
+            }
 
-            if (value is not T) return default;
+            if (value is not T)
+            {
+                cache = default;
+                return false;
+            }
 
-            return (T)value;
+            cache = (T)value;
+            return true;
         }
     }
 }
