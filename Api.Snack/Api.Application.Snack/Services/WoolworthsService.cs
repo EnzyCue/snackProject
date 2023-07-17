@@ -1,13 +1,8 @@
-﻿using Api.Snack.Models;
-using System.Net;
-using System;
-using Api.Snack.Models.Woolworths;
-using System.Text.Json;
-using Api.Snack.Helpers;
-using static System.Net.Mime.MediaTypeNames;
-using System.Xml.Linq;
+﻿using Api.Domain.Snack.Models;
+using System.Net.Http.Json;
+using Api.Domain.Snack.Models.Woolworths;
 
-namespace Api.Snack.Services
+namespace Api.Application.Snack.Services
 {
     public class WoolworthsService
     {
@@ -18,7 +13,7 @@ namespace Api.Snack.Services
         {
             // go from id -> html url
             string url = $"{_woolworthsProductEndpoint}{product.Id}";
-            
+
             // create http client and make request
             var client = new HttpClient();
             var message = new HttpRequestMessage(new HttpMethod("GET"), url);
@@ -29,14 +24,14 @@ namespace Api.Snack.Services
 
             var woolworthsproductinfo = await response.Content.ReadFromJsonAsync<WoolworthsProductInfo>();
 
-            product.Price = woolworthsproductinfo.Product.Price;
+            product.Price = woolworthsproductinfo!.Product.Price;
             product.Image = woolworthsproductinfo.Product.LargeImageFile;
             product.Name = woolworthsproductinfo.Product.DisplayName;
             product.SaveAmount = woolworthsproductinfo.Product.SavingsAmount;
             product.PricePerHundredGrams = woolworthsproductinfo.Product.CupPrice;
-           
+
         }
 
-        
+
     }
 }

@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 
-namespace Api.Snack.Helpers
+namespace Api.Application.Snack.Helpers
 {
     public static class Helper
     {
@@ -9,7 +9,7 @@ namespace Api.Snack.Helpers
         {
             bool hasDecimal = false;
 
-            var priceStr = new String(input
+            var priceStr = new string(input
                 .Where(
                 x =>
                 {

@@ -1,4 +1,4 @@
-﻿namespace Api.Snack.Models
+﻿namespace Api.Domain.Snack.Models
 {
     public class ProductComparison
     {

@@ -1,10 +1,9 @@
-﻿using Api.Snack.Helpers;
-using Api.Snack.Models;
+﻿using Api.Application.Snack.Helpers;
+using Api.Domain.Snack.Models;
 using HtmlAgilityPack;
-using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Api.Snack.Services
+namespace Api.Application.Snack.Services
 {
     public class ColesService
     {
@@ -14,7 +13,7 @@ namespace Api.Snack.Services
         {
             // go from id -> html url
             string url = $"{_colesProductEndpoint}{product.Id}";
-            
+
             // use html agility pack to extract the information about the product
             var web = new HtmlWeb();
             var htmlDoc = web.Load(url);
@@ -32,7 +31,7 @@ namespace Api.Snack.Services
 
             //Scrape Name
             var name = htmlDoc.DocumentNode.SelectSingleNode("//h1[@class='LinesEllipsis  product__title']")?.InnerHtml;
-            name  = Regex.Replace(name ?? string.Empty, "<.*?>|&.*?;", string.Empty);
+            name = Regex.Replace(name ?? string.Empty, "<.*?>|&.*?;", string.Empty);
 
             //Scrape Save Amount
             var saveAmount = htmlDoc.DocumentNode.SelectSingleNode("//section[@class='badge-label']")?.InnerHtml;

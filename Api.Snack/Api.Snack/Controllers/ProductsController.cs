@@ -1,7 +1,7 @@
+using Api.Application.Snack.Services;
 using Api.Snack.Helpers;
 using Api.Snack.Models;
 using Api.Snack.Services;
-using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 using System.Text.Json;
@@ -19,7 +19,7 @@ namespace Api.Snack.Controllers
 
         public ProductsController(ILogger<ProductsController> logger, ColesService colesService, WoolworthsService woolworthsService, CacheService cacheService)
         {
-            _logger = logger;
+            _logger = logger; 
             _colesService = colesService;
             _woolworthsService = woolworthsService;
             _cacheService = cacheService;

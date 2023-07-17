@@ -1,4 +1,4 @@
-﻿namespace Api.Snack.Models
+﻿namespace Api.Domain.Snack.Models
 {
     public class Product
     {
@@ -7,7 +7,7 @@
         public decimal Price { get; set; }
 
         public string Name { get; set; }
-        
+
         public string Image { get; set; }
 
         public decimal SaveAmount { get; set; }

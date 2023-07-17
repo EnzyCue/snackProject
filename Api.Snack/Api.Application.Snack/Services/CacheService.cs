@@ -1,4 +1,4 @@
-﻿namespace Api.Snack.Services
+﻿namespace Api.Application.Snack.Services
 {
     public class CacheObject
     {
