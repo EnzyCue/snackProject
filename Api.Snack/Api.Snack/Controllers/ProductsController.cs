@@ -3,6 +3,7 @@ using Api.Snack.Helpers;
 using Api.Snack.Models;
 using Api.Snack.Services;
 using Microsoft.AspNetCore.Mvc;
+using Snack.Framework.AspNetCore.Controllers;
 using System.Reflection;
 using System.Text.Json;
 
@@ -10,7 +11,7 @@ namespace Api.Snack.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductsController : MediatorController<ProductsController>
     {
         private readonly ILogger<ProductsController> _logger;
         private readonly ColesService _colesService;
