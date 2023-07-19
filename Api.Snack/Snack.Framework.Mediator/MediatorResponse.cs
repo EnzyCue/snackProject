@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,17 +47,6 @@ namespace Snack.Framework.Mediator
         public static MediatorResponse<T> Created(T response)
         {
             return new MediatorResponse<T> { Data = response, StatusCode = HttpStatusCode.Created };
-        }
-
-        public static MediatorResponse Created(string id)
-        {
-            return new MediatorResponse { Data = new EntityCreated(id), StatusCode = HttpStatusCode.Created };
-        }
-
-        public static MediatorResponse Created(string[] ids)
-        {
-            var data = ids.Select(id => new EntityCreated(id)).ToList();
-            return new MediatorResponse { Data = data, StatusCode = HttpStatusCode.Created };
         }
 
         public static MediatorResponse Ok()
