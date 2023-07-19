@@ -9,7 +9,7 @@ namespace Api.Application.Snack.Services
     {
         private readonly string _colesProductEndpoint = "https://www.coles.com.au/product/";
 
-        public async Task GetColesProduct(Product product)
+        public async Task GetColesProduct(Product product, ProductOptions options)
         {
             // go from id -> html url
             string url = $"{_colesProductEndpoint}{product.Id}";

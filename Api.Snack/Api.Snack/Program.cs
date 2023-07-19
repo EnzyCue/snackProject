@@ -1,4 +1,5 @@
-using Api.Snack.Services;
+using Api.Application.Snack;
+using Api.Application.Snack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ColesService>();
 builder.Services.AddSingleton<WoolworthsService>();
 builder.Services.AddSingleton<CacheService>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SnackApiEntry).Assembly));
 
 var app = builder.Build();
 

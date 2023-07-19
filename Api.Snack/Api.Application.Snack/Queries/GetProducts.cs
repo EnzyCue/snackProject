@@ -31,12 +31,12 @@ namespace Api.Application.Snack.Queries
                 _cacheService = cacheService;
             }
 
-            public Task<MediatorResponse> Handle(Query query, CancellationToken cancellationToken)
+            public async Task<MediatorResponse> Handle(Query query, CancellationToken cancellationToken)
             {
                 // check if its cached
                 if (_cacheService.TryGetCache<List<ProductComparison>>("Products", out var cache))
                 {
-                    return new OkObjectResult(cache);
+                    return MediatorResponse.Ok(cache);
                 }
 
                 //Get list of products
@@ -47,12 +47,15 @@ namespace Api.Application.Snack.Queries
 
                 foreach (var productComparison in productComparisons)
                 {
+                    for()
                     await _colesService.GetColesProduct(productComparison.Coles);
 
                     await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths, cookies);
                 }
 
                 _cacheService.SetCacheKey("Products", productComparisons);
+
+                return MediatorResponse.Ok(productComparisons);
             }
         }
     }

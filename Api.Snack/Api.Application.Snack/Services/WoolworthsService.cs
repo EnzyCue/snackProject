@@ -1,15 +1,17 @@
 ﻿using Api.Domain.Snack.Models;
 using System.Net.Http.Json;
 using Api.Domain.Snack.Models.Woolworths;
+using Api.Application.Snack.Helpers;
+using Api.Application.Snack.Interfaces;
 
 namespace Api.Application.Snack.Services
 {
-    public class WoolworthsService
+    public class WoolworthsService : IStoreService
     {
         private readonly string _woolworthsProductEndpoint = "https://www.woolworths.com.au/apis/ui/product/detail/";
         private readonly string _user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36";
 
-        public async Task GetWoolworthsProduct(Product product, string cookies)
+        public async Task GetStoreProduct(Product product, ProductOptions options)
         {
             // go from id -> html url
             string url = $"{_woolworthsProductEndpoint}{product.Id}";
@@ -18,7 +20,7 @@ namespace Api.Application.Snack.Services
             var client = new HttpClient();
             var message = new HttpRequestMessage(new HttpMethod("GET"), url);
             message.Headers.Add("user-agent", _user_agent);
-            message.Headers.Add("cookie", cookies);
+            message.Headers.Add("cookie", options.Cookies);
 
             var response = await client.SendAsync(message);
 
@@ -29,9 +31,6 @@ namespace Api.Application.Snack.Services
             product.Name = woolworthsproductinfo.Product.DisplayName;
             product.SaveAmount = woolworthsproductinfo.Product.SavingsAmount;
             product.PricePerHundredGrams = woolworthsproductinfo.Product.CupPrice;
-
         }
-
-
     }
 }
