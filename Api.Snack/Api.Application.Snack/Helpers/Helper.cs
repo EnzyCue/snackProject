@@ -63,22 +63,18 @@ namespace Api.Application.Snack.Helpers
             throw new Exception("Failed to fetch cookies");
         }
 
-        public static ProductConfig GetProductConfigByStoreService(IStoreService service, ProductComparison productComparison)
+        public static Product GetProductByStoreService(IStoreService service, ProductComparison productComparison)
         {
-            ProductConfig config = new ProductConfig();
-
             if (service is WoolworthsService)
             {
-                config.Product = productComparison.Woolworths;
+                return productComparison.Woolworths;
             }
             else if (service is ColesService)
             {
-                config.Product = productComparison.Coles;
+                return productComparison.Coles;
             }
             else
                 throw new Exception("Cannot find store");
-
-            return config;
         }
     }
 }

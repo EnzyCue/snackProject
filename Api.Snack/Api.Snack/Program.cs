@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IStoreService, ColesService>();
-builder.Services.AddSingleton<IStoreService, WoolworthsService>();
+builder.Services.AddScoped<IStoreService, ColesService>();
+builder.Services.AddScoped<IStoreService, WoolworthsService>();
 builder.Services.AddSingleton<CacheService>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SnackApiEntry).Assembly));
 

@@ -12,6 +12,8 @@
         {
             var currentDateTime = DateTime.Now.AddHours(2);
             var currentUtc = DateTime.UtcNow;
+
+            // next time it hits 6am it expires
             ExpiryTime = new DateTime(currentDateTime.Year, currentDateTime.Month, currentUtc.Day, 6, 0, 0).ToUniversalTime().AddDays(1);
             Object = obj;
         }

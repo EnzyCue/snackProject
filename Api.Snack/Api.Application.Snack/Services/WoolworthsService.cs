@@ -12,14 +12,14 @@ namespace Api.Application.Snack.Services
         private readonly string _user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36";
         public ProductOptions ProductOptions { get; set; }
 
-        public WoolworthsService()
-        {
-            ProductOptions = new ProductOptions();
-            ProductOptions.Cookies = Helper.GetWoolworthsCookies();
-        }
-
         public async Task GetStoreProduct(Product product)
         {
+            if (ProductOptions == null)
+            {
+                ProductOptions = new ProductOptions();
+                ProductOptions.Cookies = Helper.GetWoolworthsCookies();
+            }
+
             // go from id -> html url
             string url = $"{_woolworthsProductEndpoint}{product.Id}";
 
