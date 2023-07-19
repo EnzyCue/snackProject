@@ -1,4 +1,5 @@
 ﻿using Api.Application.Snack.Helpers;
+using Api.Application.Snack.Interfaces;
 using Api.Application.Snack.Services;
 using Api.Domain.Snack.Models;
 using MediatR;
@@ -20,14 +21,12 @@ namespace Api.Application.Snack.Queries
 
         public class Handler : IRequestHandler<Query, MediatorResponse>
         {
-            private readonly ColesService _colesService;
-            private readonly WoolworthsService _woolworthsService;
+            private readonly IEnumerable<IStoreService> _storeServices;
             private readonly CacheService _cacheService;
 
-            public Handler(ColesService colesService, WoolworthsService woolworthsService, CacheService cacheService)
+            public Handler(IEnumerable<IStoreService> storeServices, CacheService cacheService)
             {
-                _colesService = colesService;
-                _woolworthsService = woolworthsService;
+                _storeServices = storeServices;
                 _cacheService = cacheService;
             }
 
@@ -43,14 +42,15 @@ namespace Api.Application.Snack.Queries
                 string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 var fileProducts = System.IO.File.ReadAllText($"{currentDirectory}\\products.json");
                 var productComparisons = JsonSerializer.Deserialize<List<ProductComparison>>(fileProducts, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                var cookies = Helper.GetCookies();
 
                 foreach (var productComparison in productComparisons)
                 {
-                    for()
-                    await _colesService.GetColesProduct(productComparison.Coles);
+                    foreach (var storeService in _storeServices)
+                    {
+                        var product = Helper.GetProductByStoreService(storeService, productComparison);
 
-                    await _woolworthsService.GetWoolworthsProduct(productComparison.Woolworths, cookies);
+                        await storeService.GetStoreProduct(product);
+                    }
                 }
 
                 _cacheService.SetCacheKey("Products", productComparisons);

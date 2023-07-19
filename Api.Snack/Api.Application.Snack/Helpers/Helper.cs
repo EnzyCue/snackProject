@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using Api.Domain.Snack.Models;
+using Api.Application.Snack.Interfaces;
+using Api.Application.Snack.Services;
 
 namespace Api.Application.Snack.Helpers
 {
@@ -33,7 +36,7 @@ namespace Api.Application.Snack.Helpers
             return price;
         }
 
-        public static string GetCookies()
+        public static string GetWoolworthsCookies()
         {
             string url = "https://www.woolworths.com.au/shop/productdetails/479502";
             string _cookie1 = "_abck";
@@ -58,6 +61,24 @@ namespace Api.Application.Snack.Helpers
             }
 
             throw new Exception("Failed to fetch cookies");
+        }
+
+        public static ProductConfig GetProductConfigByStoreService(IStoreService service, ProductComparison productComparison)
+        {
+            ProductConfig config = new ProductConfig();
+
+            if (service is WoolworthsService)
+            {
+                config.Product = productComparison.Woolworths;
+            }
+            else if (service is ColesService)
+            {
+                config.Product = productComparison.Coles;
+            }
+            else
+                throw new Exception("Cannot find store");
+
+            return config;
         }
     }
 }

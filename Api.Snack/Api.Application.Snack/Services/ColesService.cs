@@ -1,15 +1,22 @@
 ﻿using Api.Application.Snack.Helpers;
+using Api.Application.Snack.Interfaces;
 using Api.Domain.Snack.Models;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 
 namespace Api.Application.Snack.Services
 {
-    public class ColesService
+    public class ColesService : IStoreService
     {
         private readonly string _colesProductEndpoint = "https://www.coles.com.au/product/";
+        public ProductOptions ProductOptions { get; set; }
 
-        public async Task GetColesProduct(Product product, ProductOptions options)
+        public ColesService()
+        {
+            ProductOptions = new ProductOptions();
+        }
+
+        public async Task GetStoreProduct(Product product)
         {
             // go from id -> html url
             string url = $"{_colesProductEndpoint}{product.Id}";
@@ -46,5 +53,6 @@ namespace Api.Application.Snack.Services
             product.SaveAmount = saveAmount == null ? 0 : Helper.ConvertToPrice(saveAmount);
             product.PricePerHundredGrams = pricePerHundredGrams == null ? 0 : Helper.ConvertToPrice(pricePerHundredGrams);
         }
+
     }
 }

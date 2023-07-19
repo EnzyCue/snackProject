@@ -10,6 +10,8 @@ namespace Api.Application.Snack.Interfaces
 {
     public interface IStoreService
     {
-        public Task GetStoreProduct(Product product, ProductOptions options);
+        public ProductOptions ProductOptions { get; set; }
+
+        public Task GetStoreProduct(Product product);
     }
 }
