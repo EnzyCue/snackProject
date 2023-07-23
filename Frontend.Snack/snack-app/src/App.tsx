@@ -1,5 +1,6 @@
 import "./App.css";
 import Button from "@mui/material/Button";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 
 function App() {
   return (
@@ -19,6 +20,12 @@ function App() {
               with real-time updates and an easy-to-use interface. Your smart,
               cost-effective snack shopping companion.
             </p>
+            <button className="transition ease-in-out duration-500 delay-75  hover:scale-105 bg-gray-600 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl">
+              <div className="flex justify-center content-center">
+                <p>Preview</p>
+                <ArrowForwardRoundedIcon sx={{ marginLeft: "0.5rem" }} />
+              </div>
+            </button>
           </div>
         </div>
         {/* First Right half of screen */}
