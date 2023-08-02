@@ -1,6 +1,7 @@
 import "./App.css";
 import Button from "@mui/material/Button";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
+import { ImageSlider } from "./components/image-slider/image-slider";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         </div>
         {/* First Right half of screen */}
         <div className="flex flex-col justify-center grow hidden xl:block">
-          <div>hello</div>
+          <ImageSlider />
         </div>
       </div>
     </>

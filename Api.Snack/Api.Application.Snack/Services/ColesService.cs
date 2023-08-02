@@ -27,12 +27,6 @@ namespace Api.Application.Snack.Services
 
             // ---- Scrape data ----
 
-            //Scrape Image
-            var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
-            var startIndex = image.IndexOf("https://productimages.coles.com.au");
-            var endIndex = image.IndexOf(" ", startIndex);
-            image = image.Substring(startIndex, endIndex - startIndex);
-
             //Scrape Price
             var price = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__value']")?.InnerHtml;
 
@@ -45,6 +39,12 @@ namespace Api.Application.Snack.Services
 
             //Scrape Price Per Hundred Grams
             var pricePerHundredGrams = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__calculation_method']")?.InnerHtml;
+
+            //Scrape Image
+            var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
+            var startIndex = image.IndexOf("https://productimages.coles.com.au");
+            var endIndex = image.IndexOf(" ", startIndex);
+            image = image.Substring(startIndex, endIndex - startIndex);
 
             //Map data
             product.Price = price == null ? 0 : Helper.ConvertToPrice(price);
