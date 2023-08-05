@@ -5,9 +5,10 @@ import { ImageSlider } from "./components/image-slider/image-slider";
 import { DownloadButtons } from "./components/download-buttons/download-buttons";
 import ProductDialog from "./components/product-preview/dialog/product-dialog";
 import { useState } from "react";
+import useOpenProductsStore from "./stores/product-store";
 
 function App() {
-  const [open, setOpen] = useState<boolean>(false);
+  const setOpen = useOpenProductsStore((state) => state.setOpen);
 
   return (
     <>
@@ -48,7 +49,7 @@ function App() {
           <DownloadButtons />
         </div>
       </div>
-      <ProductDialog open={open} setOpen={setOpen} />
+      <ProductDialog />
     </>
   );
 }

@@ -4,16 +4,16 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import { useState } from "react";
+import useOpenProductsStore from "../../../stores/product-store";
 
-interface IProductDialogProps {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export default function ProductDialog() {
+  const openProductsStore = useOpenProductsStore((state) => state);
 
-export default function ProductDialog(props: IProductDialogProps) {
   return (
-    <Dialog open={props.open} onClose={() => props.setOpen(false)}>
+    <Dialog
+      open={openProductsStore.open}
+      onClose={() => openProductsStore.setOpen(false)}
+    >
       <DialogTitle>Current Offers</DialogTitle>
       <DialogContent>
         <DialogContentText>
