@@ -3,8 +3,12 @@ import Button from "@mui/material/Button";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { ImageSlider } from "./components/image-slider/image-slider";
 import { DownloadButtons } from "./components/download-buttons/download-buttons";
+import ProductDialog from "./components/product-preview/dialog/product-dialog";
+import { useState } from "react";
 
 function App() {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <>
       {/* Root background */}
@@ -22,7 +26,10 @@ function App() {
               with real-time updates and an easy-to-use interface. Your smart,
               cost-effective snack shopping companion.
             </p>
-            <button className="transition ease-in-out duration-500 hover:scale-105 bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl">
+            <button
+              onClick={() => setOpen(true)}
+              className="transition ease-in-out duration-500 hover:scale-105 bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl"
+            >
               <div className="flex justify-center content-center 2xl:text-2xl">
                 <p>Preview</p>
                 <ArrowForwardRoundedIcon
@@ -41,6 +48,7 @@ function App() {
           <DownloadButtons />
         </div>
       </div>
+      <ProductDialog open={open} setOpen={setOpen} />
     </>
   );
 }
