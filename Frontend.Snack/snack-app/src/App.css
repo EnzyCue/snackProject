@@ -1,3 +1,7 @@
 .bg-color {
   @apply bg-gradient-to-r from-green-300 to-emerald-300;
 }
+
+#arrow-icon {
+  @apply 2xl:text-[1.5em];
+}

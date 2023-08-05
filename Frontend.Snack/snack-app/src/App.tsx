@@ -2,6 +2,7 @@ import "./App.css";
 import Button from "@mui/material/Button";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { ImageSlider } from "./components/image-slider/image-slider";
+import { DownloadButtons } from "./components/download-buttons/download-buttons";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         {/* First left half of screen */}
         <div className="flex flex-col justify-center grow">
           {/* Content info */}
-          <div className="ml-0 md:ml-[15%] 2xl:mb-[9em]">
+          <div className="ml-0 md:ml-[15%] 2xl:mb-[7em] px-3.5">
             <h1 className="text-gray-900 text-5xl md:text-6xl text-4xl font-bold leading-none tracking-tight 2xl:text-8xl">
               Snack App
             </h1>
@@ -21,11 +22,12 @@ function App() {
               with real-time updates and an easy-to-use interface. Your smart,
               cost-effective snack shopping companion.
             </p>
-            <button className="transition ease-in-out duration-500 delay-75  hover:scale-105 bg-gray-600 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl">
+            <button className="transition ease-in-out duration-500 hover:scale-105 bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl">
               <div className="flex justify-center content-center 2xl:text-2xl">
                 <p>Preview</p>
                 <ArrowForwardRoundedIcon
-                  sx={{ marginLeft: "0.5rem", fontSize: 35 }}
+                  id="arrow-icon"
+                  sx={{ marginLeft: "0.5rem" }}
                 />
               </div>
             </button>
@@ -34,6 +36,9 @@ function App() {
         {/* First Right half of screen */}
         <div className="flex flex-col justify-center grow hidden xl:block">
           <ImageSlider />
+        </div>
+        <div className="absolute inset-x-0 bottom-0">
+          <DownloadButtons />
         </div>
       </div>
     </>

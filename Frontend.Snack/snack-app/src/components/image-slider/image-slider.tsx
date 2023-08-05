@@ -5,8 +5,7 @@ import styles from "./image-slider.module.css";
 export function ImageSlider() {
   const images = [
     {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
+      original: "/image-1.png",
     },
     {
       original: "https://picsum.photos/id/1015/1000/600/",
@@ -20,7 +19,7 @@ export function ImageSlider() {
 
   return (
     <div className="h-full flex justify-start items-center">
-      <div className="w-[43em] h-[26em]">
+      <div className="w-[43em] h-[26em] 2xl:w-[47em] 2xl:h-[30em]">
         <ImageGallery
           items={images}
           useBrowserFullscreen={false}
