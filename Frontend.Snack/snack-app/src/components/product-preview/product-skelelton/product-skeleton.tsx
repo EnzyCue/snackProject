@@ -2,11 +2,11 @@ import { Skeleton, Stack } from "@mui/material";
 
 export default function ProductSkeleton() {
   return (
-    <Stack spacing={1}>
+    <Stack>
       <Skeleton
         animation="wave"
         variant="text"
-        sx={{ fontSize: "1rem", marginBottom: "-1em" }}
+        sx={{ fontSize: "1rem", marginBottom: "-0.1em" }}
         width={415}
         height={50}
       />
@@ -16,7 +16,7 @@ export default function ProductSkeleton() {
           variant="text"
           sx={{
             fontSize: "1rem",
-            marginBottom: "-3.5em",
+            marginBottom: "-2.5em",
             marginRight: "0.1em",
           }}
           width={220}
@@ -24,11 +24,11 @@ export default function ProductSkeleton() {
         <Skeleton
           animation="wave"
           variant="text"
-          sx={{ fontSize: "1rem", marginBottom: "-3.5em" }}
+          sx={{ fontSize: "1rem", marginBottom: "-2.5em" }}
           width={220}
         />
       </Stack>
-      <Stack flexDirection="row">
+      <Stack flexDirection="row" mb={-4}>
         <Skeleton
           animation="wave"
           width={220}

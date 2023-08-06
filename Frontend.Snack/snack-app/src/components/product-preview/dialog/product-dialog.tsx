@@ -7,17 +7,14 @@ export default function ProductDialog() {
 
   return (
     <Dialog
+      PaperProps={{ sx: { maxHeight: "50vh", minHeight: "50vh" } }}
       open={openProductsStore.open}
       onClose={() => openProductsStore.setOpen(false)}
     >
       <DialogTitle>Current Offers</DialogTitle>
       <DialogContent>
         {[...Array(10)].map(() => {
-          return (
-            <Stack flexDirection="column">
-              <ProductSkeleton />
-            </Stack>
-          );
+          return <ProductSkeleton />;
         })}
       </DialogContent>
     </Dialog>
