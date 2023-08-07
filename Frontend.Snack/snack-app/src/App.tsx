@@ -6,6 +6,7 @@ import { DownloadButtons } from "./components/download-buttons/download-buttons"
 import ProductDialog from "./components/product-preview/dialog/product-dialog";
 import { useState } from "react";
 import useOpenProductsStore from "./stores/product-store";
+import ProductDrawer from "./components/product-preview/drawer/product-drawer";
 
 function App() {
   const setOpen = useOpenProductsStore((state) => state.setOpen);
@@ -50,6 +51,7 @@ function App() {
         </div>
       </div>
       <ProductDialog />
+      <ProductDrawer />
     </>
   );
 }
