@@ -50,8 +50,12 @@ function App() {
           <DownloadButtons />
         </div>
       </div>
-      <ProductDialog />
-      <ProductDrawer />
+      <div style={{ display: "none !important" }}>
+        <ProductDialog />
+      </div>
+      <div className="hidden">
+        <ProductDrawer />
+      </div>
     </>
   );
 }

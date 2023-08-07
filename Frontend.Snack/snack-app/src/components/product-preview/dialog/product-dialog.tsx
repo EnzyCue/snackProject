@@ -7,9 +7,13 @@ export default function ProductDialog() {
 
   return (
     <Dialog
-      PaperProps={{ sx: { maxHeight: "50vh", minHeight: "50vh" } }}
-      // open={openProductsStore.open}
-      open={false}
+      PaperProps={{
+        sx: {
+          maxHeight: "50vh",
+          minHeight: "50vh",
+        },
+      }}
+      open={openProductsStore.open}
       onClose={() => openProductsStore.setOpen(false)}
     >
       <DialogTitle>Current Offers</DialogTitle>
