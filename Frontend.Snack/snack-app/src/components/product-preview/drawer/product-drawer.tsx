@@ -1,5 +1,5 @@
 import { Drawer, Stack, Typography } from "@mui/material";
-import useOpenProductsStore from "../../../stores/product-store";
+import useOpenProductsStore from "../../../stores/open-product-store";
 import ProductSkeleton from "../product-skelelton/product-skeleton";
 
 export default function ProductDrawer() {

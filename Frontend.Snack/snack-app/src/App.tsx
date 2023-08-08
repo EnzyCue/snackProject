@@ -5,13 +5,26 @@ import { ImageSlider } from "./components/image-slider/image-slider";
 import { DownloadButtons } from "./components/download-buttons/download-buttons";
 import ProductDialog from "./components/product-preview/dialog/product-dialog";
 import { useState } from "react";
-import useOpenProductsStore from "./stores/product-store";
+import useOpenProductsStore from "./stores/open-product-store";
 import ProductDrawer from "./components/product-preview/drawer/product-drawer";
 import useIsMobile from "./hooks/is-mobile";
+import useProductsStore from "./stores/products-store";
+import { productsApi } from "./api/products-api";
 
 function App() {
   const setOpen = useOpenProductsStore((state) => state.setOpen);
+  const productsStore = useProductsStore((state) => state);
   const isMobile = useIsMobile();
+
+  const onPreviewClick = async () => {
+    setOpen(true);
+
+    if (!productsStore.products) {
+      const products = await productsApi.getAllProducts();
+      console.log(products);
+      productsStore.setProducts(products);
+    }
+  };
 
   return (
     <>
@@ -31,7 +44,7 @@ function App() {
               cost-effective snack shopping companion.
             </p>
             <button
-              onClick={() => setOpen(true)}
+              onClick={onPreviewClick}
               className="transition ease-in-out duration-500 hover:scale-105 bg-black hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-l-md rounded-r-xl"
             >
               <div className="flex justify-center content-center 2xl:text-2xl">

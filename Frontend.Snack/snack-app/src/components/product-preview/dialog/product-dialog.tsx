@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTitle, Stack } from "@mui/material";
-import useOpenProductsStore from "../../../stores/product-store";
+import useOpenProductsStore from "../../../stores/open-product-store";
 import ProductSkeleton from "../product-skelelton/product-skeleton";
 import { useEffect } from "react";
 
