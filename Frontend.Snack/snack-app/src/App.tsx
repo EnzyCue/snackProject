@@ -7,9 +7,11 @@ import ProductDialog from "./components/product-preview/dialog/product-dialog";
 import { useState } from "react";
 import useOpenProductsStore from "./stores/product-store";
 import ProductDrawer from "./components/product-preview/drawer/product-drawer";
+import useIsMobile from "./hooks/is-mobile";
 
 function App() {
   const setOpen = useOpenProductsStore((state) => state.setOpen);
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -50,12 +52,7 @@ function App() {
           <DownloadButtons />
         </div>
       </div>
-      <div style={{ display: "none !important" }}>
-        <ProductDialog />
-      </div>
-      <div className="hidden">
-        <ProductDrawer />
-      </div>
+      {isMobile ? <ProductDrawer /> : <ProductDialog />}
     </>
   );
 }

@@ -1,11 +1,21 @@
-import { useState } from "react";
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindConfig from '../../tailwind.config.js'
+import { useEffect, useState } from "react";
 
-const fullConfig = resolveConfig(tailwindConfig)
-const getIsMobile = () => window.innerWidth <= 
+const getIsMobile = () => window.innerWidth <= 640;
 
+export default function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(getIsMobile());
 
-export default function useIsMobile(){
-    const [isMobile, setIsMobile] = useState()
+  useEffect(() => {
+    const onResize = () => {
+      setIsMobile(getIsMobile());
+    };
+
+    window.addEventListener("resize", onResize);
+    // This is the destructor that runs when a component is unmounted.
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  return isMobile;
 }
