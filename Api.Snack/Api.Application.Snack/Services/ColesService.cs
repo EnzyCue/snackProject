@@ -13,7 +13,7 @@ namespace Api.Application.Snack.Services
 
         public ColesService()
         {
-            ProductOptions = new ProductOptions();
+            ProductOptions = new ProductOptions(); // Not used in GetStoreProduct method because it is not required for scraping coles as of the time typing this comment.
         }
 
         public async Task GetStoreProduct(Product product)
