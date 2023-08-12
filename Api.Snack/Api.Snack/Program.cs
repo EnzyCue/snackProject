@@ -15,6 +15,18 @@ builder.Services.AddScoped<IStoreService, WoolworthsService>();
 builder.Services.AddSingleton<CacheService>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SnackApiEntry).Assembly));
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("https://localhost:5173/").SetIsOriginAllowedToAllowWildcardSubdomains();
+                      });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
