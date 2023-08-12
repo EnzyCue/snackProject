@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { IProduct } from "../models/product";
 
+// stores the product preview data
+
 interface IProductsStore {
   products: IProduct[] | undefined;
   setProducts: (products: IProduct[]) => void;

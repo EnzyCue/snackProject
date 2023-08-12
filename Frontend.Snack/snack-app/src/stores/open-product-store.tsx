@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+// stores whether the preview is currently being displayed or not
+
 interface IOpenProductsStore {
   open: boolean;
   setOpen: (isOpen: boolean) => void;

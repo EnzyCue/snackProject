@@ -1,10 +1,8 @@
 import "./App.css";
-import Button from "@mui/material/Button";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import { ImageSlider } from "./components/image-slider/image-slider";
 import { DownloadButtons } from "./components/download-buttons/download-buttons";
 import ProductDialog from "./components/product-preview/dialog/product-dialog";
-import { useState } from "react";
 import useOpenProductsStore from "./stores/open-product-store";
 import ProductDrawer from "./components/product-preview/drawer/product-drawer";
 import useIsMobile from "./hooks/is-mobile";
@@ -24,6 +22,7 @@ function App() {
       console.log(products);
       productsStore.setProducts(products);
     }
+    // display the productStore.product data into the preview format.
   };
 
   return (
