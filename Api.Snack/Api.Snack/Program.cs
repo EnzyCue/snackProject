@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
                       {
-                          builder.WithOrigins("https://localhost:5173/").SetIsOriginAllowedToAllowWildcardSubdomains();
+                          builder.WithOrigins("http://localhost:5173/").AllowAnyHeader();
                       });
 });
 
