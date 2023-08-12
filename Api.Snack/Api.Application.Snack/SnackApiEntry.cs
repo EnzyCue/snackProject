@@ -8,5 +8,6 @@ namespace Api.Application.Snack
 {
     public class SnackApiEntry
     {
+        // Here to serve as an entry point for mediatr to implement the mediator design pattern.
     }
 }
