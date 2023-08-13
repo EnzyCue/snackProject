@@ -41,6 +41,7 @@ namespace Api.Application.Snack.Services
             var pricePerHundredGrams = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__calculation_method']")?.InnerHtml;
 
             //Scrape Image
+            var image1 = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]"); //debugging
             var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
             var startIndex = image.IndexOf("https://shop.coles.com.au");
             var endIndex = image.IndexOf(" ", startIndex);
