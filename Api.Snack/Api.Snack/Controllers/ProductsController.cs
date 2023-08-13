@@ -13,7 +13,7 @@ namespace Api.Snack.Controllers
 
         public ProductsController(ILogger<ProductsController> logger)
         {
-            _logger = logger; 
+            _logger = logger;
         }
 
         [HttpGet]
