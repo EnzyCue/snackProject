@@ -1,12 +1,12 @@
 import { Dialog, DialogContent, DialogTitle, Stack } from "@mui/material";
 import useOpenProductsStore from "../../../stores/open-product-store";
-import ProductSkeleton from "../product-skelelton/product-skeleton";
 import useProductsStore from "../../../stores/products-store";
 import MultipleSkeletons from "../product-skelelton/multiple-skleletons";
+import ProductResult from "../product-result/product-result";
 
 export default function ProductDialog() {
   const openProductsStore = useOpenProductsStore((state) => state);
-  const products = useProductsStore((state) => state.products);
+  const products = useProductsStore((state) => state.productComparisons);
 
   return (
     <Dialog
@@ -24,7 +24,14 @@ export default function ProductDialog() {
         {!products ? (
           <MultipleSkeletons amount={10} keyPrefix="dialog" />
         ) : (
-          <></>
+          products.map((productItem, index) => {
+            return (
+              <ProductResult
+                productComparison={productItem}
+                key={`result-${index}`}
+              />
+            );
+          })
         )}
       </DialogContent>
     </Dialog>

@@ -1,15 +1,16 @@
 import { create } from "zustand";
-import { IProduct } from "../models/product";
+import { IProductComparison } from "../models/product-comparison";
 
 // stores the product preview data
 
 interface IProductsStore {
-  products: IProduct[] | undefined;
-  setProducts: (products: IProduct[]) => void;
+  productComparisons: IProductComparison[] | undefined;
+  setProductComparison: (products: IProductComparison[]) => void;
 }
 
 const useProductsStore = create<IProductsStore>((set) => ({
-  products: undefined,
-  setProducts: (products: IProduct[]) => set(() => ({ products: products })),
+  productComparisons: undefined,
+  setProductComparison: (products: IProductComparison[]) =>
+    set(() => ({ productComparisons: products })),
 }));
 export default useProductsStore;

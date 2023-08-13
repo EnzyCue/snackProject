@@ -1,9 +1,11 @@
 import { Drawer, Stack, Typography } from "@mui/material";
 import useOpenProductsStore from "../../../stores/open-product-store";
 import MultipleSkeletons from "../product-skelelton/multiple-skleletons";
+import useProductsStore from "../../../stores/products-store";
 
 export default function ProductDrawer() {
   const openProductsStore = useOpenProductsStore((state) => state);
+  const products = useProductsStore((state) => state.productComparisons);
 
   return (
     <Drawer
@@ -32,7 +34,11 @@ export default function ProductDrawer() {
         flexDirection="column"
         alignItems="center"
       >
-        <MultipleSkeletons amount={10} keyPrefix="drawer" />
+        {!products ? (
+          <MultipleSkeletons amount={10} keyPrefix="drawer" />
+        ) : (
+          <></>
+        )}
       </Stack>
     </Drawer>
   );

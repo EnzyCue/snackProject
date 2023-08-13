@@ -17,9 +17,9 @@ function App() {
   const onPreviewClick = async () => {
     setOpen(true);
 
-    if (!productsStore.products) {
-      const products = await productsApi.getAllProducts();
-      productsStore.setProducts(products);
+    if (!productsStore.productComparisons) {
+      const productComparisons = await productsApi.getAllProducts();
+      productsStore.setProductComparison(productComparisons);
     }
     // display the productStore.product data into the preview format.
   };
