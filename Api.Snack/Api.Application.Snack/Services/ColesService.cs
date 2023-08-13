@@ -42,7 +42,7 @@ namespace Api.Application.Snack.Services
 
             //Scrape Image
             var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
-            var startIndex = image.IndexOf("https://productimages.coles.com.au");
+            var startIndex = image.IndexOf("https://shop.coles.com.au");
             var endIndex = image.IndexOf(" ", startIndex);
             image = image.Substring(startIndex, endIndex - startIndex);
 
