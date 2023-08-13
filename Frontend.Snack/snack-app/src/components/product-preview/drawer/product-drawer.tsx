@@ -1,6 +1,6 @@
 import { Drawer, Stack, Typography } from "@mui/material";
 import useOpenProductsStore from "../../../stores/open-product-store";
-import ProductSkeleton from "../product-skelelton/product-skeleton";
+import MultipleSkeletons from "../product-skelelton/multiple-skleletons";
 
 export default function ProductDrawer() {
   const openProductsStore = useOpenProductsStore((state) => state);
@@ -32,9 +32,7 @@ export default function ProductDrawer() {
         flexDirection="column"
         alignItems="center"
       >
-        {[...Array(10)].map(() => {
-          return <ProductSkeleton />;
-        })}
+        <MultipleSkeletons amount={10} keyPrefix="drawer" />
       </Stack>
     </Drawer>
   );

@@ -15,29 +15,21 @@ builder.Services.AddScoped<IStoreService, WoolworthsService>();
 builder.Services.AddSingleton<CacheService>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(SnackApiEntry).Assembly));
 
-var corsPolicy = builder.Configuration["CorsPolicy"];
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: corsPolicy,
-                      b =>
-                      {
-                          b.WithOrigins(builder.Configuration["Frontend:Host"]).AllowAnyHeader();
-                      });
-});
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseCors(config => config
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin());
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors(corsPolicy);
 
 app.UseAuthorization();
 

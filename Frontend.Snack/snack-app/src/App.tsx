@@ -19,7 +19,6 @@ function App() {
 
     if (!productsStore.products) {
       const products = await productsApi.getAllProducts();
-      console.log(products);
       productsStore.setProducts(products);
     }
     // display the productStore.product data into the preview format.
