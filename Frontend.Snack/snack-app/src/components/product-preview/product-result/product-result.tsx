@@ -21,13 +21,17 @@ export default function ProductResult(props: IProductResultProps) {
   const { productComparison } = props;
 
   return (
-    <Stack flexDirection="column" sx={{ marginBottom: "1em" }}>
-      <Typography paddingX={1} fontWeight={700} sx={{ textAlign: "center" }}>
+    <Stack flexDirection="column" sx={{ marginBottom: "2em" }}>
+      <Typography
+        paddingX={1}
+        fontWeight={700}
+        sx={{ textAlign: "center", marginBottom: "0.5em" }}
+      >
         {productComparison.coles.name}
       </Typography>
 
       <Stack flexDirection="row">
-        <Box>
+        <Box sx={{ marginTop: "1em" }}>
           <img src={productComparison.woolworths.image} className="w-32 h-32" />
         </Box>
         <Box
