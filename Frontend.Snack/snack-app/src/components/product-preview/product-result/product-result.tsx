@@ -1,4 +1,3 @@
-import { IProduct } from "../../../models/product";
 import {
   Box,
   Stack,
@@ -11,8 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import { IProductComparison } from "../../../models/product-comparison";
-import Paper from "@mui/material/Paper";
 import useIsMobile from "../../../hooks/is-mobile";
+import { IProduct } from "../../../models/product";
 
 interface IProductResultProps {
   productComparison: IProductComparison;
@@ -22,21 +21,51 @@ export default function ProductResult(props: IProductResultProps) {
   const { productComparison } = props;
   const isMobile = useIsMobile();
 
+  const tableResultStyle = (product: IProduct): string => {
+    const productIsColes: boolean = product === productComparison.coles;
+    const isColesPriceLower: boolean | null =
+      productComparison.coles.price === productComparison.woolworths.price
+        ? null
+        : productComparison.coles.price < productComparison.woolworths.price
+        ? true
+        : false;
+
+    if (isColesPriceLower === null) return "bg-blue-200";
+
+    if (isColesPriceLower) {
+      return productIsColes ? "bg-green-200" : "bg-red-200";
+    } else {
+      return productIsColes ? "bg-red-200" : "bg-green-200";
+    }
+  };
+
   const verticalTable = () => {
     return (
       //4 table rows
       //3 table columns
-      <TableContainer component={Paper}>
+      <TableContainer
+        sx={{
+          "& td,th": { border: 0 },
+        }}
+      >
         <Table size="small">
           <TableBody>
             <TableRow>
               <TableCell variant="head" sx={{ fontWeight: "bold" }}>
                 Store Name
               </TableCell>
-              <TableCell variant="head" sx={{ fontWeight: "bold" }}>
+              <TableCell
+                variant="head"
+                sx={{ fontWeight: "bold" }}
+                className={`${tableResultStyle(productComparison.coles)}`}
+              >
                 Coles
               </TableCell>
-              <TableCell variant="head" sx={{ fontWeight: "bold" }}>
+              <TableCell
+                variant="head"
+                sx={{ fontWeight: "bold" }}
+                className={`${tableResultStyle(productComparison.woolworths)}`}
+              >
                 Woolworths
               </TableCell>
             </TableRow>
@@ -44,8 +73,14 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell variant="head" sx={{ fontWeight: "bold" }}>
                 Price
               </TableCell>
-              <TableCell>${productComparison.coles.price.toFixed(2)}</TableCell>
-              <TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.coles)}`}
+              >
+                ${productComparison.coles.price.toFixed(2)}
+              </TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.woolworths)}`}
+              >
                 ${productComparison.woolworths.price.toFixed(2)}
               </TableCell>
             </TableRow>
@@ -53,21 +88,29 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell variant="head" sx={{ fontWeight: "bold" }}>
                 Savings
               </TableCell>
-              <TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.coles)}`}
+              >
                 ${productComparison.coles.saveAmount.toFixed(2)}
               </TableCell>
-              <TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.woolworths)}`}
+              >
                 ${productComparison.woolworths.saveAmount.toFixed(2)}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell variant="head" sx={{ fontWeight: "bold" }}>
-                Prive Per 100g
+                Price Per 100g
               </TableCell>
-              <TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.coles)}`}
+              >
                 ${productComparison.coles.pricePerHundredGrams.toFixed(2)}
               </TableCell>
-              <TableCell>
+              <TableCell
+                className={`${tableResultStyle(productComparison.woolworths)}`}
+              >
                 ${productComparison.woolworths.pricePerHundredGrams.toFixed(2)}
               </TableCell>
             </TableRow>
@@ -79,7 +122,11 @@ export default function ProductResult(props: IProductResultProps) {
 
   const horizontalTable = () => {
     return (
-      <TableContainer component={Paper}>
+      <TableContainer
+        sx={{
+          "& td,th": { border: 0 },
+        }}
+      >
         <Table size="small">
           <TableHead>
             <TableRow>
@@ -107,6 +154,7 @@ export default function ProductResult(props: IProductResultProps) {
                 <TableRow
                   key={key}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  className={`${tableResultStyle(product)}`}
                 >
                   <TableCell
                     component="th"
