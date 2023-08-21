@@ -38,7 +38,8 @@ namespace Api.Application.Snack.Services
             var saveAmount = htmlDoc.DocumentNode.SelectSingleNode("//section[@class='badge-label']")?.InnerHtml;
 
             //Scrape Price Per Hundred Grams
-            var pricePerHundredGrams = htmlDoc.DocumentNode.SelectSingleNode("//span[@class='price__calculation_method']")?.InnerHtml;
+            var pricePerHundredGrams = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='price__calculation_method']")?.InnerHtml;
+
 
             //Scrape Image
             var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
