@@ -42,8 +42,10 @@ namespace Api.Application.Snack.Helpers
             string _cookie1 = "_abck";
             string _cookie2 = "bm_sz";
 
-            IWebDriver driver = new ChromeDriver();
-
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("--headless");
+            IWebDriver driver = new ChromeDriver(chromeOptions);
+           
             try
             {
                 // Navigate to Url
