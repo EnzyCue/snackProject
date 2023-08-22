@@ -21,17 +21,14 @@ export default function ProductResult(props: IProductResultProps) {
   const { productComparison } = props;
   const isMobile = useIsMobile();
   const outOfStockColes: boolean =
-    productComparison.coles.price === 0
-      ? productComparison.coles.saveAmount === 0
-        ? productComparison.coles.pricePerHundredGrams === 0
-        : false
-      : false;
+    productComparison.coles.price === 0 &&
+    productComparison.coles.saveAmount === 0 &&
+    productComparison.coles.pricePerHundredGrams === 0;
+
   const outOfStockWoolworths: boolean =
-    productComparison.woolworths.price === 0
-      ? productComparison.woolworths.saveAmount === 0
-        ? productComparison.woolworths.pricePerHundredGrams === 0
-        : false
-      : false;
+    productComparison.woolworths.price === 0 &&
+    productComparison.woolworths.saveAmount === 0 &&
+    productComparison.woolworths.pricePerHundredGrams === 0;
 
   const tableResultStyle = (product: IProduct): string => {
     const productIsColes: boolean = product === productComparison.coles;
@@ -68,17 +65,25 @@ export default function ProductResult(props: IProductResultProps) {
               </TableCell>
               <TableCell
                 variant="head"
-                sx={{ fontWeight: "bold" }}
                 className={`${tableResultStyle(productComparison.coles)}`}
               >
-                Coles
+                <div className="flex flex-col items-center">
+                  <p className="font-bold">Coles</p>
+                  {outOfStockColes && (
+                    <small className="font-light">(out of stock)</small>
+                  )}
+                </div>
               </TableCell>
               <TableCell
                 variant="head"
-                sx={{ fontWeight: "bold" }}
                 className={`${tableResultStyle(productComparison.woolworths)}`}
               >
-                Woolworths
+                <div className="flex flex-col items-center">
+                  <p className="font-bold">Woolworths</p>
+                  {outOfStockWoolworths && (
+                    <small className="font-light">(out of stock)</small>
+                  )}
+                </div>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -88,13 +93,14 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell
                 className={`${tableResultStyle(productComparison.coles)}`}
               >
-                {/* {true ? "OUT" : "$" + productComparison.coles.price.toFixed()}  */}
-                ${productComparison.coles.price.toFixed()}
+                {!outOfStockColes &&
+                  "$" + productComparison.coles.price.toFixed()}
               </TableCell>
               <TableCell
                 className={`${tableResultStyle(productComparison.woolworths)}`}
               >
-                ${productComparison.woolworths.price.toFixed(2)}
+                {!outOfStockWoolworths &&
+                  "$" + productComparison.woolworths.price.toFixed(2)}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -104,12 +110,14 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell
                 className={`${tableResultStyle(productComparison.coles)}`}
               >
-                ${productComparison.coles.saveAmount.toFixed(2)}
+                {!outOfStockColes &&
+                  "$" + productComparison.coles.saveAmount.toFixed(2)}
               </TableCell>
               <TableCell
                 className={`${tableResultStyle(productComparison.woolworths)}`}
               >
-                ${productComparison.woolworths.saveAmount.toFixed(2)}
+                {!outOfStockWoolworths &&
+                  "$" + productComparison.woolworths.saveAmount.toFixed(2)}
               </TableCell>
             </TableRow>
             <TableRow>
@@ -119,12 +127,17 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell
                 className={`${tableResultStyle(productComparison.coles)}`}
               >
-                ${productComparison.coles.pricePerHundredGrams.toFixed(2)}
+                {!outOfStockColes &&
+                  "$" + productComparison.coles.pricePerHundredGrams.toFixed(2)}
               </TableCell>
               <TableCell
                 className={`${tableResultStyle(productComparison.woolworths)}`}
               >
-                ${productComparison.woolworths.pricePerHundredGrams.toFixed(2)}
+                {!outOfStockWoolworths &&
+                  "$" +
+                    productComparison.woolworths.pricePerHundredGrams.toFixed(
+                      2
+                    )}
               </TableCell>
             </TableRow>
           </TableBody>
@@ -162,6 +175,10 @@ export default function ProductResult(props: IProductResultProps) {
             {Object.keys(productComparison).map((key) => {
               const product =
                 productComparison[key as keyof IProductComparison];
+              const isProductOutOfStock =
+                product.price === 0 &&
+                product.saveAmount === 0 &&
+                product.pricePerHundredGrams === 0;
 
               return (
                 <TableRow
@@ -174,16 +191,21 @@ export default function ProductResult(props: IProductResultProps) {
                     scope="row"
                     sx={{ fontWeight: "bold" }}
                   >
-                    {key}
+                    <p>{key}</p>
+                    {isProductOutOfStock && (
+                      <small className="font-light">(out of stock)</small>
+                    )}
                   </TableCell>
                   <TableCell align="right">
-                    ${product.price.toFixed(2)}
+                    {!isProductOutOfStock && "$" + product.price.toFixed(2)}
                   </TableCell>
                   <TableCell align="right">
-                    ${product.saveAmount.toFixed(2)}
+                    {!isProductOutOfStock &&
+                      "$" + product.saveAmount.toFixed(2)}
                   </TableCell>
                   <TableCell align="right" sx={{ textAlign: "center" }}>
-                    ${product.pricePerHundredGrams.toFixed(2)}
+                    {!isProductOutOfStock &&
+                      "$" + product.pricePerHundredGrams.toFixed(2)}
                   </TableCell>
                 </TableRow>
               );
