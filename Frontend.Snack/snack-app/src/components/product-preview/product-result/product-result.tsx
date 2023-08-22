@@ -20,6 +20,18 @@ interface IProductResultProps {
 export default function ProductResult(props: IProductResultProps) {
   const { productComparison } = props;
   const isMobile = useIsMobile();
+  const outOfStockColes: boolean =
+    productComparison.coles.price === 0
+      ? productComparison.coles.saveAmount === 0
+        ? productComparison.coles.pricePerHundredGrams === 0
+        : false
+      : false;
+  const outOfStockWoolworths: boolean =
+    productComparison.woolworths.price === 0
+      ? productComparison.woolworths.saveAmount === 0
+        ? productComparison.woolworths.pricePerHundredGrams === 0
+        : false
+      : false;
 
   const tableResultStyle = (product: IProduct): string => {
     const productIsColes: boolean = product === productComparison.coles;
@@ -76,7 +88,8 @@ export default function ProductResult(props: IProductResultProps) {
               <TableCell
                 className={`${tableResultStyle(productComparison.coles)}`}
               >
-                ${productComparison.coles.price.toFixed(2)}
+                {/* {true ? "OUT" : "$" + productComparison.coles.price.toFixed()}  */}
+                ${productComparison.coles.price.toFixed()}
               </TableCell>
               <TableCell
                 className={`${tableResultStyle(productComparison.woolworths)}`}

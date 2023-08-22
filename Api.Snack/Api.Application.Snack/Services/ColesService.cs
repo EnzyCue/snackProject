@@ -2,7 +2,9 @@
 using Api.Application.Snack.Interfaces;
 using Api.Domain.Snack.Models;
 using HtmlAgilityPack;
+using System;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Api.Application.Snack.Services
 {
@@ -42,14 +44,16 @@ namespace Api.Application.Snack.Services
 
 
             //Scrape Image
-            var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
+
+/*            var image = htmlDoc.DocumentNode.SelectSingleNode("//img[contains(@data-testid, 'product-image-0')]").NextSibling.OuterHtml;
             var startIndex = image.IndexOf("https://shop.coles.com.au");
             var endIndex = image.IndexOf(" ", startIndex);
-            image = image.Substring(startIndex, endIndex - startIndex);
+            image = image.Substring(startIndex, endIndex - startIndex);*/
+
 
             //Map data
             product.Price = price == null ? 0 : Helper.ConvertToPrice(price);
-            product.Image = image;
+            product.Image = null;
             product.Name = name;
             product.SaveAmount = saveAmount == null ? 0 : Helper.ConvertToPrice(saveAmount);
             product.PricePerHundredGrams = pricePerHundredGrams == null ? 0 : Helper.ConvertToPrice(pricePerHundredGrams);
