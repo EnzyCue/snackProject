@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, Image, View, Text } from "react-native";
 // Mock products array
 const products = [
   { id: "1", name: "Product 1", price: 10.99, image: "" },
-  { id: "2", name: "Product 2", price: 12.99, image: "path/to/image2.jpg" },
+  { id: "2", name: "Product 2", price: 12.99, image: "" },
   { id: "3", name: "Product 3", price: 9.99, image: "" },
   // Add more products as needed
 ];
@@ -25,8 +25,6 @@ const ProductItem = ({ item }: { item: any }) => (
 export default function MainScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab Juicer</Text>
-      <Text>Yooo testing baby</Text>
       <FlatList
         data={products}
         renderItem={ProductItem}
@@ -39,7 +37,7 @@ export default function MainScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    backgroundColor: "#86efac",
   },
   title: {
     fontSize: 20,

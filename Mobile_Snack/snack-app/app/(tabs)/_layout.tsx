@@ -15,7 +15,7 @@ function TabBarIcon(props: {
 }
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = "dark";
 
   return (
     <Tabs
@@ -26,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab None",
+          title: "Snack List",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
@@ -35,7 +35,7 @@ export default function TabLayout() {
                   <FontAwesome
                     name="info-circle"
                     size={25}
-                    color={Colors[colorScheme ?? "light"].text}
+                    color={pressed ? "#aaa" : "#fff"}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
