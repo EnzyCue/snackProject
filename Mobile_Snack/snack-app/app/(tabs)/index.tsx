@@ -1,14 +1,31 @@
 import { StyleSheet, FlatList, Image, View, Text } from "react-native";
 
-// Mock products array
 const products = [
-  { id: "1", name: "Product 1", price: 10.99, image: "" },
-  { id: "2", name: "Product 2", price: 12.99, image: "" },
-  { id: "3", name: "Product 3", price: 9.99, image: "" },
+  {
+    id: "1",
+    name: "Product 1",
+    priceWoolworths: 10.99,
+    priceColes: 11.49,
+    image: "",
+  },
+  {
+    id: "2",
+    name: "Product 2",
+    priceWoolworths: 12.99,
+    priceColes: 12.49,
+    image: "",
+  },
+  {
+    id: "3",
+    name: "Product 3",
+    priceWoolworths: 9.99,
+    priceColes: 9.49,
+    image: "",
+  },
   // Add more products as needed
 ];
 
-const ProductItem = ({ item }: { item: any }) => (
+const ProductItem = ({ item }) => (
   <View style={styles.item}>
     {item.image ? (
       <Image source={{ uri: item.image }} style={styles.image} />
@@ -17,7 +34,10 @@ const ProductItem = ({ item }: { item: any }) => (
     )}
     <View style={styles.textContainer}>
       <Text style={styles.itemName}>{item.name}</Text>
-      <Text style={styles.itemPrice}>${item.price}</Text>
+      <Text style={styles.itemPrice}>
+        Woolworths: ${item.priceWoolworths.toFixed(2)}
+      </Text>
+      <Text style={styles.itemPrice}>Coles: ${item.priceColes.toFixed(2)}</Text>
     </View>
   </View>
 );
@@ -27,7 +47,7 @@ export default function MainScreen() {
     <View style={styles.container}>
       <FlatList
         data={products}
-        renderItem={ProductItem}
+        renderItem={({ item }) => <ProductItem item={item} />}
         keyExtractor={(item) => item.id}
       />
     </View>
@@ -83,5 +103,6 @@ const styles = StyleSheet.create({
   },
   itemPrice: {
     fontSize: 14,
+    marginBottom: 4,
   },
 });
