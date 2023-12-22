@@ -1,18 +1,24 @@
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, Image, View, Text } from "react-native";
 
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
-
+// Mock products array
 const products = [
-  { id: "1", name: "Product 1" },
-  { id: "2", name: "Product 2" },
-  { id: "3", name: "Product 3" },
+  { id: "1", name: "Product 1", price: 10.99, image: "" },
+  { id: "2", name: "Product 2", price: 12.99, image: "path/to/image2.jpg" },
+  { id: "3", name: "Product 3", price: 9.99, image: "" },
   // Add more products as needed
 ];
 
 const ProductItem = ({ item }: { item: any }) => (
-  <View>
-    <Text>{item.name}</Text>
+  <View style={styles.item}>
+    {item.image ? (
+      <Image source={{ uri: item.image }} style={styles.image} />
+    ) : (
+      <View style={styles.placeholderImage} />
+    )}
+    <View style={styles.textContainer}>
+      <Text style={styles.itemName}>{item.name}</Text>
+      <Text style={styles.itemPrice}>${item.price}</Text>
+    </View>
   </View>
 );
 
@@ -33,16 +39,40 @@ export default function MainScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    marginTop: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    marginBottom: 10,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  item: {
+    flexDirection: "row",
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    alignItems: "center",
+    backgroundColor: "#eee",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+  },
+  placeholderImage: {
+    width: 100,
+    height: 100,
+    backgroundColor: "#ccc",
+  },
+  textContainer: {
+    marginLeft: 10,
+    flex: 1,
+  },
+  itemName: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  itemPrice: {
+    fontSize: 14,
   },
 });
