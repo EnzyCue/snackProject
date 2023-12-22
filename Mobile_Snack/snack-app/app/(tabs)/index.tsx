@@ -51,11 +51,22 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     alignItems: "center",
     backgroundColor: "#eee",
+    borderRadius: 10,
+    // iOS shadow properties
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    // Android elevation
+    elevation: 5,
   },
+
   image: {
     width: 100,
     height: 100,
-    borderRadius: 50,
   },
   placeholderImage: {
     width: 100,

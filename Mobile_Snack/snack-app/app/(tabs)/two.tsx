@@ -11,7 +11,7 @@ export default function TabTwoScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Text style={styles.aboutText}>Snack app</Text>
+      <Text style={styles.aboutText}>Snack App</Text>
       <Text style={styles.aboutText}>We show you snack prices </Text>
       <Text style={styles.aboutText}>You buy more snacks! </Text>
     </View>
